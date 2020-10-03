@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"><!--adaug xmlns:th  cu sursa thymeleaf, pt a specifica folosirea template engine-->
+<head>
+    <title>MVC App</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"><!-- librarie de imagini... butoane de media-->
+</head>
+<body>
+<div th:switch="${users}" class="container my-5"> <!--th:switch interpreteaza un swi h pe atrib / variabila user din model -->
+    <div class="row">
+        <div class="col-md-6">
+            <p class="my-5"><a href="/signup" class="btn btn-primary"><i class="fas fa-user-plus ml-2"></i></a></p>
+            <p>Buton de adaugare</p>
+
+            <h2 th:case="null">No users yet!</h2>
+
+            <div th:case="*">
+                <h2 class="my-5">Users</h2>
+                <table class="table table-striped table-responsive-md">
+                    <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.username}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td th:text="${user.password}"></td>
+                        <td><a th:href="@{/edit/{id}(id=${user.id})}" class="btn btn-primary" target="_blank"><i class="fas fa-user-edit ml-2"></i></a></td>
+                        <td><a th:href="@{/delete/{id}(id=${user.id})}"  class="btn btn-danger"><i class="fas fa-user-times ml-2"></i></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
